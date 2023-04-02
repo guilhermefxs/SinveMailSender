@@ -1,20 +1,24 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import express, { json, urlencoded } from 'express';
+import cors from 'cors';
+import { join } from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+import {sendEmail} from './routes/sendEmail.js';
 
 var app = express();
+app.use(json());
+app.use(cors());
+const port = process.env.PORT || 3000;
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/sendEmail/:email', sendEmail);
 
-module.exports = app;
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+});
+

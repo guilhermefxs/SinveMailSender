@@ -1,7 +1,4 @@
-const MailSlurp = require("mailslurp-client").default;
-var express = require('express');
-var router = express.Router();
-
+import { MailSlurp } from "mailslurp-client";
 
 const sendEmailMailSlurp = async (emailAddress) => {
   try {
@@ -22,11 +19,13 @@ const sendEmailMailSlurp = async (emailAddress) => {
   
 }
 
-
-/* GET users listing. */
-router.get('/', async function(req, res, next) {
-  await sendEmailMailSlurp('wgjlvbjlzvsuewfoxt@bbitf.com');
-  res.send('ok');
-});
-
-module.exports = router;
+export const sendEmail = async (req, res) => {
+  try {
+    console.log(req.params)
+    const email = req.params.email;
+    await sendEmailMailSlurp(email);
+    res.send('ok');
+  } catch (err) {
+      res.status(500).send({ err: err.message })
+  }
+}
