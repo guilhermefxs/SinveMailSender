@@ -2,7 +2,7 @@ import { MailSlurp } from "mailslurp-client";
 
 const sendEmailMailSlurp = async (emailAddress) => {
   try {
-    const apiKey = process.env.API_KEY ?? '89b94c2651742b24da443f864494b693a3e78ad36704c87c91af664746c2f43f';
+    const apiKey = process.env.API_KEY ?? '16cf4152f4a81c1806a230530ead06796708392da78eca8faefd6bc530cee076';
     const mailslurp = new MailSlurp({ apiKey });
 
     // create an inbox
@@ -11,12 +11,12 @@ const sendEmailMailSlurp = async (emailAddress) => {
       to: [emailAddress],
       subject: 'Hello',
       body: 'Welcome',
-  };
-  const sent = await mailslurp.sendEmail(inbox.id, options);
+    };
+    const sent = await mailslurp.sendEmail(inbox.id, options);
   } catch (error) {
     console.log(error);
   }
-  
+
 }
 
 export const sendEmail = async (req, res) => {
@@ -26,6 +26,6 @@ export const sendEmail = async (req, res) => {
     await sendEmailMailSlurp(email);
     res.send('ok');
   } catch (err) {
-      res.status(500).send({ err: err.message })
+    res.status(500).send({ err: err.message })
   }
 }
