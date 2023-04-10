@@ -16,7 +16,7 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/sendEmail/:email', sendEmail);
+app.post('/sendEmail/:email', sendEmail);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
