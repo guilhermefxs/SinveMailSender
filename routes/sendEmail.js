@@ -22,7 +22,7 @@ const sendEmailMailSlurp = async (emailAddress, body) => {
 export const sendEmail = async (req, res) => {
   try {
     const email = req.params.email;
-    console.log("messageeee: " + req.body.message);
+    console.log(req.body);
     await sendEmailMailSlurp(email, req.body.message);
     res.send('ok');
   } catch (err) {
